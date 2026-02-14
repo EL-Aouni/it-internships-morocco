@@ -1,249 +1,245 @@
-'use client'
+'use client';
 
-import { useEffect, useMemo, useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { MapPin, Briefcase, Mail, Phone, Globe, Copy, Home } from 'lucide-react';
 
-// ================= TYPES =================
 type Company = {
-  id: number
-  name: string
-  city?: string
-  speciality?: string
-  email?: string
-  phone?: string
-  website?: string
-  priority?: string
-  description?: string
-}
+  id: number;
+  name: string;
+  city: string;
+  speciality: string;
+  email: string;
+  phone: string | null;
+  website: string | null;
+  priority: 'high' | 'medium' | 'low';
+  description: string | null;
+};
 
-// ================= HELPERS =================
-function getPriorityBadge(priority?: string) {
-  if (!priority) return '🟡 Normal'
-  if (priority === 'high') return '🟢 High'
-  if (priority === 'medium') return '🟡 Medium'
-  return '🔴 Low'
-}
-
-function loadFavorites(): number[] {
-  if (typeof window === 'undefined') return []
-  try {
-    return JSON.parse(localStorage.getItem('favorites') || '[]')
-  } catch {
-    return []
-  }
-}
-
-function saveFavorites(favs: number[]) {
-  localStorage.setItem('favorites', JSON.stringify(favs))
-}
-
-// ================= PAGE =================
 export default function SearchPage() {
-  const [data, setData] = useState<Company[]>([])
-  const [query, setQuery] = useState('')
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
+  const [city, setCity] = useState<string>('all');
+  const [speciality, setSpeciality] = useState<string>('all');
+  const [priority, setPriority] = useState<string>('all');
+  const [loading, setLoading] = useState(true);
 
-  // filters
-  const [city, setCity] = useState('')
-  const [speciality, setSpeciality] = useState('')
-  const [priority, setPriority] = useState('')
-
-  const [dark, setDark] = useState(false)
-  const [favorites, setFavorites] = useState<number[]>([])
-
-  // ================= LOAD =================
   useEffect(() => {
-    fetch('/companies.json')
-      .then((r) => r.json())
-      .then((d) => setData(d))
-      .catch(() => setData([]))
+    const basePath = process.env.NODE_ENV === 'production' 
+      ? '/it-internships-morocco' 
+      : '';
+    
+    fetch(`${basePath}/companies.json`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load companies');
+        return res.json();
+      })
+      .then(data => {
+        setCompanies(data);
+        setFilteredCompanies(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error loading companies:', err);
+        setLoading(false);
+        alert('Failed to load companies. Please refresh the page.');
+      });
+  }, []);
 
-    setFavorites(loadFavorites())
-  }, [])
+  useEffect(() => {
+    let filtered = companies;
 
-  // ================= FAVORITES =================
-  function toggleFavorite(id: number) {
-    setFavorites((prev) => {
-      const exists = prev.includes(id)
-      const updated = exists ? prev.filter((x) => x !== id) : [...prev, id]
-      saveFavorites(updated)
-      return updated
-    })
-  }
+    if (city !== 'all') {
+      filtered = filtered.filter(c => c.city === city);
+    }
 
-  // ================= FILTER =================
-  const filtered = useMemo(() => {
-    return data.filter((item) => {
-      const matchesQuery =
-        !query ||
-        item.name?.toLowerCase().includes(query.toLowerCase()) ||
-        item.speciality?.toLowerCase().includes(query.toLowerCase())
+    if (speciality !== 'all') {
+      filtered = filtered.filter(c => c.speciality === speciality);
+    }
 
-      const matchesCity = !city || item.city === city
-      const matchesSpec = !speciality || item.speciality === speciality
-      const matchesPriority = !priority || item.priority === priority
+    if (priority !== 'all') {
+      filtered = filtered.filter(c => c.priority === priority);
+    }
 
-      return matchesQuery && matchesCity && matchesSpec && matchesPriority
-    })
-  }, [data, query, city, speciality, priority])
+    setFilteredCompanies(filtered);
+  }, [city, speciality, priority, companies]);
 
-  // ================= UNIQUE VALUES =================
-  const cities = [...new Set(data.map((d) => d.city).filter(Boolean))]
-  const specialities = [...new Set(data.map((d) => d.speciality).filter(Boolean))]
-  const priorities = [...new Set(data.map((d) => d.priority).filter(Boolean))]
+  const cities = [...new Set(companies.map(c => c.city))].sort();
+  const specialities = [...new Set(companies.map(c => c.speciality))].sort();
 
-  // ================= RENDER =================
+  const copyEmail = (email: string) => {
+    navigator.clipboard.writeText(email);
+    alert('Email copied!');
+  };
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'high': return 'text-green-600 bg-green-50 border-green-200';
+      case 'medium': return 'text-blue-600 bg-blue-50 border-blue-200';
+      case 'low': return 'text-gray-600 bg-gray-50 border-gray-200';
+      default: return '';
+    }
+  };
+
   return (
-    <div className={dark ? 'dark bg-slate-950 text-white min-h-screen' : 'bg-slate-50 min-h-screen'}>
-      <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-card">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/">
+            <h1 className="text-2xl font-bold text-primary cursor-pointer hover:text-primary/80">
+              IT Internships Morocco
+            </h1>
+          </Link>
+          <Link href="/">
+            <Button variant="outline">
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Button>
+          </Link>
+        </div>
+      </header>
 
-        {/* HEADER */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">IT Internships Morocco</h1>
-            <p className="text-sm opacity-70">Find companies offering internships in Morocco</p>
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold mb-2">Search for Internships</h2>
+          <p className="text-muted-foreground mb-6">
+            Filter by city, specialty, and priority
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+              <label className="block text-sm font-medium mb-2">City</label>
+              <Select value={city} onValueChange={setCity}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select city" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Cities</SelectItem>
+                  {cities.map(c => (
+                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Specialty</label>
+              <Select value={speciality} onValueChange={setSpeciality}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select specialty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Specialties</SelectItem>
+                  {specialities.map(s => (
+                    <SelectItem key={s} value={s}>{s}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-2">Priority</label>
+              <Select value={priority} onValueChange={setPriority}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Priorities</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          <Button onClick={() => setDark(!dark)}>
-            {dark ? '☀️ Light' : '🌙 Dark'}
-          </Button>
+          {!loading && (
+            <div className="text-sm text-muted-foreground">
+              Found <span className="font-semibold text-foreground">{filteredCompanies.length}</span> companies
+            </div>
+          )}
         </div>
 
-        {/* STATS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="rounded-2xl">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold">{data.length}+</div>
-              <div className="text-sm opacity-70">Companies indexed</div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold">{cities.length}+</div>
-              <div className="text-sm opacity-70">Cities covered</div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold">🇲🇦</div>
-              <div className="text-sm opacity-70">Helping Moroccan students</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* SEARCH */}
-        <input
-          className="w-full p-3 rounded-xl border"
-          placeholder="Search company or speciality..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-
-        {/* FILTERS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <select className="p-2 rounded-lg border" value={city} onChange={(e) => setCity(e.target.value)}>
-            <option value="">All Cities</option>
-            {cities.map((c) => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
-
-          <select
-            className="p-2 rounded-lg border"
-            value={speciality}
-            onChange={(e) => setSpeciality(e.target.value)}
-          >
-            <option value="">All Domains</option>
-            {specialities.map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-
-          <select
-            className="p-2 rounded-lg border"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option value="">All Priority</option>
-            {priorities.map((p) => (
-              <option key={p}>{p}</option>
-            ))}
-          </select>
-
-          <Button
-            onClick={() => {
-              setCity('')
-              setSpeciality('')
-              setPriority('')
-              setQuery('')
-            }}
-          >
-            Reset
-          </Button>
-        </div>
-
-        {/* RESULTS */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((item) => {
-            const isFav = favorites.includes(item.id)
-
-            return (
-              <Card
-                key={item.id}
-                className="rounded-2xl shadow-sm hover:shadow-xl transition-all duration-200"
-              >
-                <CardContent className="p-5 space-y-2">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-lg">{item.name}</h3>
-                    <span className="text-xs whitespace-nowrap">
-                      {getPriorityBadge(item.priority)}
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        ) : filteredCompanies.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCompanies.map(company => (
+              <Card key={company.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <CardTitle className="text-lg">{company.name}</CardTitle>
+                    <span className={`px-2 py-1 rounded text-xs font-semibold border ${getPriorityColor(company.priority)}`}>
+                      {company.priority}
                     </span>
                   </div>
-
-                  {item.city && <p className="text-sm">📍 {item.city}</p>}
-                  {item.speciality && <p className="text-sm">💻 {item.speciality}</p>}
-
-                  {item.description && (
-                    <p className="text-xs opacity-70 line-clamp-3">{item.description}</p>
-                  )}
-
-                  <div className="flex gap-2 pt-2">
-                    {item.website && (
-                      <a href={item.website} target="_blank">
-                        <Button className="w-full">Visit</Button>
-                      </a>
-                    )}
-
-                    <Button
-                      variant={isFav ? 'default' : 'outline'}
-                      onClick={() => toggleFavorite(item.id)}
-                    >
-                      {isFav ? '❤️ Saved' : '🤍 Save'}
+                  <CardDescription className="line-clamp-2">
+                    {company.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex items-center text-sm">
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span>{company.city}</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Briefcase className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span>{company.speciality}</span>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <Mail className="h-4 w-4 mr-2 text-muted-foreground" />
+                    <span className="flex-1 truncate">{company.email}</span>
+                    <Button size="sm" variant="ghost" onClick={() => copyEmail(company.email)} className="h-6 w-6 p-0">
+                      <Copy className="h-3 w-3" />
                     </Button>
                   </div>
+                  {company.phone && (
+                    <div className="flex items-center text-sm">
+                      <Phone className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span>{company.phone}</span>
+                    </div>
+                  )}
                 </CardContent>
+                {company.website && (
+                  <CardFooter>
+                    <a href={company.website} target="_blank" rel="noopener noreferrer" className="w-full">
+                      <Button variant="outline" className="w-full" size="sm">
+                        <Globe className="mr-2 h-4 w-4" />
+                        Visit Website
+                      </Button>
+                    </a>
+                  </CardFooter>
+                )}
               </Card>
-            )
-          })}
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="text-center opacity-60 py-10">
-            No companies found 😢
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <Briefcase className="h-16 w-16 text-muted-foreground mx-auto mb-4 opacity-50" />
+            <h3 className="text-xl font-semibold mb-2">No companies found</h3>
+            <p className="text-muted-foreground">Try adjusting your filters</p>
           </div>
         )}
-
-        {/* SUBMIT CTA */}
-        <div className="text-center pt-10">
-          <a href="/submit">
-            <Button className="px-8 py-3 text-lg rounded-2xl">
-              ➕ Submit Internship
-            </Button>
-          </a>
-        </div>
       </div>
     </div>
-  )
+  );
 }
