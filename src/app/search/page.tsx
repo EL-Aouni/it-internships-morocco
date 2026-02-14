@@ -41,12 +41,24 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/companies.json')
-      .then(res => res.json())
+    const basePath = process.env.NODE_ENV === 'production' 
+      ? '/it-internships-morocco' 
+      : '';
+    
+    fetch(`${basePath}/companies.json`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load companies');
+        return res.json();
+      })
       .then(data => {
         setCompanies(data);
         setFilteredCompanies(data);
         setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error loading companies:', err);
+        setLoading(false);
+        alert('Failed to load companies. Please refresh the page.');
       });
   }, []);
 
