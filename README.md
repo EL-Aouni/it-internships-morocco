@@ -24,46 +24,11 @@ A full-stack web application helping Moroccan IT students find internship opport
 - Node.js 18+ 
 - MySQL database (or PlanetScale account)
 
-### Installation
+### Site
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/EL-Aouni/it-internships-morocco.git
-   cd it-internships-morocco
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
+ **Open your browser**
    
-   Edit `.env.local` and add your database URL:
-   ```env
-   DATABASE_URL="mysql://user:password@localhost:3306/cyber_internships"
-   ```
-
-4. **Create database and import data**
-   ```bash
-   # Create the database
-   mysql -u root -p -e "CREATE DATABASE cyber_internships;"
-   
-   # Import the schema and seed data
-   mysql -u root -p cyber_internships < scripts/companies.sql
-   ```
-
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000)
+   Navigate to https://el-aouni.github.io/it-internships-morocco/
 
 ## 📦 Tech Stack
 
