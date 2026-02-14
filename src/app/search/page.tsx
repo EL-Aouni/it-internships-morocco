@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { trpc } from '@/lib/trpc';
 import {
   Select,
   SelectContent,
@@ -21,41 +20,73 @@ import {
 } from '@/components/ui/card';
 import { MapPin, Briefcase, Mail, Phone, Globe, Copy, Home } from 'lucide-react';
 
+type Company = {
+  id: number;
+  name: string;
+  city: string;
+  speciality: string;
+  email: string;
+  phone: string | null;
+  website: string | null;
+  priority: 'high' | 'medium' | 'low';
+  description: string | null;
+};
+
 export default function SearchPage() {
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
   const [city, setCity] = useState<string>('all');
   const [speciality, setSpeciality] = useState<string>('all');
-  const [priority, setPriority] = useState<'high' | 'medium' | 'low' | 'all'>('all');
+  const [priority, setPriority] = useState<string>('all');
+  const [loading, setLoading] = useState(true);
 
-  const { data: companies, isLoading: companiesLoading } = trpc.companies.search.useQuery({
-    city: city === 'all' ? undefined : city,
-    speciality: speciality === 'all' ? undefined : speciality,
-    priority: priority === 'all' ? undefined : priority,
-  });
+  useEffect(() => {
+    fetch('/companies.json')
+      .then(res => res.json())
+      .then(data => {
+        setCompanies(data);
+        setFilteredCompanies(data);
+        setLoading(false);
+      });
+  }, []);
 
-  const { data: cities } = trpc.companies.getCities.useQuery();
-  const { data: specialities } = trpc.companies.getSpecialities.useQuery();
+  useEffect(() => {
+    let filtered = companies;
+
+    if (city !== 'all') {
+      filtered = filtered.filter(c => c.city === city);
+    }
+
+    if (speciality !== 'all') {
+      filtered = filtered.filter(c => c.speciality === speciality);
+    }
+
+    if (priority !== 'all') {
+      filtered = filtered.filter(c => c.priority === priority);
+    }
+
+    setFilteredCompanies(filtered);
+  }, [city, speciality, priority, companies]);
+
+  const cities = [...new Set(companies.map(c => c.city))].sort();
+  const specialities = [...new Set(companies.map(c => c.speciality))].sort();
 
   const copyEmail = (email: string) => {
     navigator.clipboard.writeText(email);
-    alert('Email copied to clipboard!');
+    alert('Email copied!');
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high':
-        return 'text-green-600 bg-green-50 border-green-200';
-      case 'medium':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'low':
-        return 'text-gray-600 bg-gray-50 border-gray-200';
-      default:
-        return '';
+      case 'high': return 'text-green-600 bg-green-50 border-green-200';
+      case 'medium': return 'text-blue-600 bg-blue-50 border-blue-200';
+      case 'low': return 'text-gray-600 bg-gray-50 border-gray-200';
+      default: return '';
     }
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
@@ -73,93 +104,79 @@ export default function SearchPage() {
       </header>
 
       <div className="container mx-auto px-4 py-8">
-        {/* Filter Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">Search for Internships</h2>
           <p className="text-muted-foreground mb-6">
-            Filter by city, specialty, and priority to find your perfect internship
+            Filter by city, specialty, and priority
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {/* City Filter */}
             <div>
               <label className="block text-sm font-medium mb-2">City</label>
               <Select value={city} onValueChange={setCity}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a city" />
+                  <SelectValue placeholder="Select city" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Cities</SelectItem>
-                  {cities?.map((c) => (
-                    <SelectItem key={c} value={c}>
-                      {c}
-                    </SelectItem>
+                  {cities.map(c => (
+                    <SelectItem key={c} value={c}>{c}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
-            {/* Specialty Filter */}
             <div>
               <label className="block text-sm font-medium mb-2">Specialty</label>
               <Select value={speciality} onValueChange={setSpeciality}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a specialty" />
+                  <SelectValue placeholder="Select specialty" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Specialties</SelectItem>
-                  {specialities?.map((s) => (
-                    <SelectItem key={s} value={s}>
-                      {s}
-                    </SelectItem>
+                  {specialities.map(s => (
+                    <SelectItem key={s} value={s}>{s}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
-            {/* Priority Filter */}
             <div>
               <label className="block text-sm font-medium mb-2">Priority</label>
-              <Select value={priority} onValueChange={(value) => setPriority(value as any)}>
+              <Select value={priority} onValueChange={setPriority}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select priority" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Priorities</SelectItem>
-                  <SelectItem value="high">High Priority</SelectItem>
-                  <SelectItem value="medium">Medium Priority</SelectItem>
-                  <SelectItem value="low">Low Priority</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {/* Results Count */}
-          {!companiesLoading && (
+          {!loading && (
             <div className="text-sm text-muted-foreground">
-              Found <span className="font-semibold text-foreground">{companies?.length || 0}</span> companies
+              Found <span className="font-semibold text-foreground">{filteredCompanies.length}</span> companies
             </div>
           )}
         </div>
 
-        {/* Results Section */}
-        {companiesLoading ? (
+        {loading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="mt-4 text-muted-foreground">Loading companies...</p>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
           </div>
-        ) : companies && companies.length > 0 ? (
+        ) : filteredCompanies.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {companies.map((company) => (
+            {filteredCompanies.map(company => (
               <Card key={company.id} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-lg">{company.name}</CardTitle>
-                    <span
-                      className={`px-2 py-1 rounded text-xs font-semibold border ${getPriorityColor(
-                        company.priority
-                      )}`}
-                    >
+                    <span className={`px-2 py-1 rounded text-xs font-semibold border ${getPriorityColor(company.priority)}`}>
                       {company.priority}
                     </span>
                   </div>
@@ -179,12 +196,7 @@ export default function SearchPage() {
                   <div className="flex items-center text-sm">
                     <Mail className="h-4 w-4 mr-2 text-muted-foreground" />
                     <span className="flex-1 truncate">{company.email}</span>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => copyEmail(company.email)}
-                      className="h-6 w-6 p-0"
-                    >
+                    <Button size="sm" variant="ghost" onClick={() => copyEmail(company.email)} className="h-6 w-6 p-0">
                       <Copy className="h-3 w-3" />
                     </Button>
                   </div>
@@ -197,12 +209,7 @@ export default function SearchPage() {
                 </CardContent>
                 {company.website && (
                   <CardFooter>
-                    <a
-                      href={company.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
+                    <a href={company.website} target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button variant="outline" className="w-full" size="sm">
                         <Globe className="mr-2 h-4 w-4" />
                         Visit Website
@@ -217,9 +224,7 @@ export default function SearchPage() {
           <div className="text-center py-12">
             <Briefcase className="h-16 w-16 text-muted-foreground mx-auto mb-4 opacity-50" />
             <h3 className="text-xl font-semibold mb-2">No companies found</h3>
-            <p className="text-muted-foreground">
-              Try adjusting your filters to see more results
-            </p>
+            <p className="text-muted-foreground">Try adjusting your filters</p>
           </div>
         )}
       </div>
