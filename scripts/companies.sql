@@ -9,6 +9,29 @@ TRUNCATE TABLE companies;
 
 -- Insert companies data
 INSERT INTO companies (name, city, speciality, email, phone, website, priority, description) VALUES
+
+CREATE TABLE IF NOT EXISTS saved_companies (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  company_id INT NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_save (company_id, user_id),
+  FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE IF NOT EXISTS applications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  company_id INT NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  status ENUM('interested', 'applied', 'contacted', 'accepted', 'rejected') DEFAULT 'interested',
+  applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  notes TEXT,
+  FOREIGN KEY (company_id) REFERENCES companies(id),
+  INDEX idx_user (user_id),
+  INDEX idx_status (status)
+);
+
 -- Casablanca - Major IT Hub
 ('Capgemini Morocco', 'Casablanca', 'Software Engineering', 'recrutement.maroc@capgemini.com', '+212 522 95 00 00', 'https://www.capgemini.com/ma', 'high', 'Leader mondial du conseil, des services technologiques et de la transformation numérique'),
 ('Accenture Maroc', 'Casablanca', 'Cloud Computing', 'careers.morocco@accenture.com', '+212 522 48 20 00', 'https://www.accenture.com/ma-en', 'high', 'Services de conseil en stratégie, conseil technologique et opérationnel'),
