@@ -217,4 +217,4 @@ For questions or suggestions:
 
 **⭐ If this project helped you, please give it a star!**
 
-Made with ☕ in Morocco 🇲🇦
+Made in Morocco 🇲🇦
