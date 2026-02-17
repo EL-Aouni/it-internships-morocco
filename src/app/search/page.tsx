@@ -25,9 +25,11 @@ type Company = {
   name: string;
   city: string;
   speciality: string;
-  email: string;
+  email?: string;
   phone: string | null;
   website: string | null;
+  linkedin?: string;
+  address: string;
   priority: 'high' | 'medium' | 'low';
   description: string | null;
 };
@@ -197,25 +199,36 @@ export default function SearchPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span>{company.city}</span>
+                  <div className="flex items-start text-sm">
+                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground mt-0.5 flex-shrink-0" />
+                    <span className="text-xs">{company.address}</span>
                   </div>
                   <div className="flex items-center text-sm">
                     <Briefcase className="h-4 w-4 mr-2 text-muted-foreground" />
                     <span>{company.speciality}</span>
                   </div>
-                  <div className="flex items-center text-sm">
-                    <Mail className="h-4 w-4 mr-2 text-muted-foreground" />
-                    <span className="flex-1 truncate">{company.email}</span>
-                    <Button size="sm" variant="ghost" onClick={() => copyEmail(company.email)} className="h-6 w-6 p-0">
-                      <Copy className="h-3 w-3" />
-                    </Button>
-                  </div>
+                  {company.email ? (
+                    <div className="flex items-center text-sm">
+                      <Mail className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span className="flex-1 truncate text-xs">{company.email}</span>
+                      <Button size="sm" variant="ghost" onClick={() => copyEmail(company.email!)} className="h-6 w-6 p-0">
+                        <Copy className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ) : company.linkedin && (
+                    <div className="flex items-center text-sm">
+                      <svg className="h-4 w-4 mr-2 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                      </svg>
+                      <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="flex-1 truncate text-xs hover:underline text-blue-600">
+                        LinkedIn Profile
+                      </a>
+                    </div>
+                  )}
                   {company.phone && (
                     <div className="flex items-center text-sm">
                       <Phone className="h-4 w-4 mr-2 text-muted-foreground" />
-                      <span>{company.phone}</span>
+                      <span className="text-xs">{company.phone}</span>
                     </div>
                   )}
                 </CardContent>
