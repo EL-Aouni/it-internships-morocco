@@ -27,7 +27,7 @@ type Company = {
   speciality: string;
   email?: string;
   phone: string | null;
-  website: string | null;
+  website?: string | null;
   linkedin?: string;
   address: string;
   priority: 'high' | 'medium' | 'low';
@@ -53,6 +53,8 @@ export default function SearchPage() {
         return res.json();
       })
       .then(data => {
+        console.log('Loaded companies:', data.length);
+        console.log('First company:', data[0]);
         setCompanies(data);
         setFilteredCompanies(data);
         setLoading(false);
@@ -60,7 +62,6 @@ export default function SearchPage() {
       .catch(err => {
         console.error('Error loading companies:', err);
         setLoading(false);
-        alert('Failed to load companies. Please refresh the page.');
       });
   }, []);
 
@@ -87,7 +88,7 @@ export default function SearchPage() {
 
   const copyEmail = (email: string) => {
     navigator.clipboard.writeText(email);
-    alert('Email copied!');
+    alert('Email copié!');
   };
 
   const getPriorityColor = (priority: string) => {
@@ -198,15 +199,26 @@ export default function SearchPage() {
                     {company.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="flex items-start text-sm">
-                    <MapPin className="h-4 w-4 mr-2 text-muted-foreground mt-0.5 flex-shrink-0" />
-                    <span className="text-xs">{company.address}</span>
+                <CardContent className="space-y-3">
+                  {/* ADRESSE - NOUVELLE! */}
+                  <div className="flex items-start text-sm bg-slate-50 p-2 rounded">
+                    <MapPin className="h-4 w-4 mr-2 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs leading-relaxed">{company.address}</span>
                   </div>
+
+                  {/* Ville */}
+                  <div className="flex items-center text-sm">
+                    <div className="h-2 w-2 rounded-full bg-blue-500 mr-2"></div>
+                    <span className="font-medium">{company.city}</span>
+                  </div>
+
+                  {/* Spécialité */}
                   <div className="flex items-center text-sm">
                     <Briefcase className="h-4 w-4 mr-2 text-muted-foreground" />
                     <span>{company.speciality}</span>
                   </div>
+
+                  {/* Email OU LinkedIn */}
                   {company.email ? (
                     <div className="flex items-center text-sm">
                       <Mail className="h-4 w-4 mr-2 text-muted-foreground" />
@@ -217,7 +229,7 @@ export default function SearchPage() {
                     </div>
                   ) : company.linkedin && (
                     <div className="flex items-center text-sm">
-                      <svg className="h-4 w-4 mr-2 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-4 w-4 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                       </svg>
                       <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="flex-1 truncate text-xs hover:underline text-blue-600">
@@ -225,6 +237,8 @@ export default function SearchPage() {
                       </a>
                     </div>
                   )}
+
+                  {/* Téléphone */}
                   {company.phone && (
                     <div className="flex items-center text-sm">
                       <Phone className="h-4 w-4 mr-2 text-muted-foreground" />
@@ -232,6 +246,8 @@ export default function SearchPage() {
                     </div>
                   )}
                 </CardContent>
+                
+                {/* Site Web */}
                 {company.website && (
                   <CardFooter>
                     <a href={company.website} target="_blank" rel="noopener noreferrer" className="w-full">
