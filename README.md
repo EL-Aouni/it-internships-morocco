@@ -22,7 +22,6 @@ A full-stack web application helping Moroccan IT students find internship opport
 ### Prerequisites
 
 - Node.js 18+ 
-- MySQL database (or PlanetScale account)
 
 ### Site
 
@@ -40,36 +39,6 @@ A full-stack web application helping Moroccan IT students find internship opport
 - **UI Components**: Radix UI + shadcn/ui
 - **State Management**: TanStack Query
 
-## 🗂️ Project Structure
-
-```
-it-internships-morocco/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── api/trpc/          # tRPC API routes
-│   │   ├── search/            # Search page
-│   │   ├── layout.tsx         # Root layout
-│   │   ├── page.tsx           # Home page
-│   │   └── globals.css        # Global styles
-│   ├── components/            # React components
-│   │   ├── ui/                # UI components
-│   │   └── trpc-provider.tsx # tRPC client provider
-│   ├── lib/                   # Utilities
-│   │   ├── db.ts              # Database connection
-│   │   ├── trpc.ts            # tRPC client
-│   │   └── utils.ts           # Helper functions
-│   └── server/                # Backend code
-│       ├── routers/           # tRPC routers
-│       │   └── companies.ts   # Companies router
-│       ├── index.ts           # Main router
-│       └── trpc.ts            # tRPC initialization
-├── scripts/
-│   └── companies.sql          # Database seed file
-├── package.json
-├── tsconfig.json
-├── tailwind.config.ts
-└── next.config.js
-```
 
 ## 🎯 Features in Detail
 
@@ -89,53 +58,6 @@ Each company card shows:
 - Website link
 - Priority indicator
 
-## 🌐 Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
-
-2. **Import to Vercel**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "Import Project"
-   - Select your repository
-   - Add environment variable: `DATABASE_URL`
-   - Deploy!
-
-3. **Set up Database (PlanetScale)**
-   - Create account at [planetscale.com](https://planetscale.com)
-   - Create database
-   - Import `scripts/companies.sql`
-   - Copy connection string to Vercel
-
-See full deployment guide in `DEPLOYMENT_GUIDE.md`
-
-## 📊 Database
-
-### Companies Table Schema
-
-```sql
-CREATE TABLE companies (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  city VARCHAR(100) NOT NULL,
-  speciality VARCHAR(100) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  phone VARCHAR(50),
-  website VARCHAR(255),
-  priority ENUM('high', 'medium', 'low'),
-  description TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  INDEX idx_city (city),
-  INDEX idx_speciality (speciality),
-  INDEX idx_priority (priority)
-);
-```
 
 ### Seeded Data
 
