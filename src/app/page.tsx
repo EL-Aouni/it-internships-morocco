@@ -27,7 +27,7 @@ export default function Home() {
             Find Your IT Internship in Morocco
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Search through 94+ companies across 18 Moroccan cities offering internships
+            Search through 99+ companies across 18 Moroccan cities offering internships
             in 15 IT specialties
           </p>
           
@@ -44,7 +44,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
             <div className="bg-card rounded-lg p-6 shadow-sm border">
               <Briefcase className="h-12 w-12 text-primary mx-auto mb-4" />
-              <div className="text-3xl font-bold mb-2">94+</div>
+              <div className="text-3xl font-bold mb-2">99+</div>
               <div className="text-muted-foreground">IT Companies</div>
             </div>
             <div className="bg-card rounded-lg p-6 shadow-sm border">
@@ -64,7 +64,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t py-6">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>© 2024 IT Internships Morocco. Helping students find opportunities.</p>
+          <p>© 2026 IT Internships Morocco. Helping students find opportunities.</p>
         </div>
       </footer>
     </div>
