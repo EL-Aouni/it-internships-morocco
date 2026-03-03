@@ -7,17 +7,17 @@ A full-stack web application helping Moroccan IT students find internship opport
 ![tRPC](https://img.shields.io/badge/tRPC-10-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8)
 
-## ✨ Features
+##  Features
 
-- 🔍 **Smart Search** - Filter by city, IT specialty, and priority
-- 🏢 **94+ Companies** - Comprehensive database across Morocco
-- 🌍 **18 Cities** - From Casablanca to Oujda
-- 💼 **15 IT Specialties** - Cybersecurity, Web Dev, Cloud, AI/ML, and more
-- 📧 **One-Click Copy** - Copy email addresses instantly
-- 📱 **Fully Responsive** - Works on all devices
-- ⚡ **Real-Time** - Instant search results with tRPC
+-  **Smart Search** - Filter by city, IT specialty, and priority
+-  **94+ Companies** - Comprehensive database across Morocco
+-  **18 Cities** - From Casablanca to Oujda
+-  **15 IT Specialties** - Cybersecurity, Web Dev, Cloud, AI/ML, and more
+-  **One-Click Copy** - Copy email addresses instantly
+-  **Fully Responsive** - Works on all devices
+-  **Real-Time** - Instant search results with tRPC
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -29,7 +29,7 @@ A full-stack web application helping Moroccan IT students find internship opport
    
    Navigate to https://el-aouni.github.io/it-internships-morocco/
 
-## 📦 Tech Stack
+##  Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
@@ -40,7 +40,7 @@ A full-stack web application helping Moroccan IT students find internship opport
 - **State Management**: TanStack Query
 
 
-## 🎯 Features in Detail
+##  Features in Detail
 
 ### Search & Filter
 - Filter by 18 Moroccan cities
@@ -66,7 +66,7 @@ The database comes with:
 - **18 cities**: Casablanca, Rabat, Marrakech, Fès, Tangier, and more
 - **15 IT specialties**: Web Dev, Cybersecurity, Cloud, AI/ML, Mobile, DevOps, etc.
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here's how:
 
@@ -80,21 +80,21 @@ Contributions are welcome! Here's how:
 
 To add new companies, edit `scripts/companies.sql` and add INSERT statements.
 
-## 📝 License
+##  License
 
 This project is open source and available under the MIT License.
 
-## 👨‍💻 Author
+##  Author
 
 **EL-Aouni**
 - GitHub: [@EL-Aouni](https://github.com/EL-Aouni)
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Built with ❤️ for Moroccan IT students
 - Thanks to all companies contributing to Morocco's tech ecosystem
 
-## 📧 Contact
+##  Contact
 
 For questions or suggestions:
 - Open an [issue](https://github.com/EL-Aouni/it-internships-morocco/issues)
@@ -102,6 +102,6 @@ For questions or suggestions:
 
 ---
 
-**⭐ If this project helped you, please give it a star!**
+** If this project helped you, please give it a star!**
 
 Made in Morocco 🇲🇦
