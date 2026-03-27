@@ -1,6 +1,6 @@
 # 🇲🇦 IT Internships Morocco
 
-A full-stack web application helping Moroccan IT students find internship opportunities across the country.
+A web application helping Moroccan IT students find internship opportunities across the country.
 
 ![Next.js](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
