@@ -26,12 +26,12 @@ function EmailCampaignContent() {
   const searchParams = useSearchParams();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [subject, setSubject] = useState(
-    "Candidature Stage {PFA/PFE} – {Domaine}"
+    "Candidature Stage {PFA or PFE} – {Domaine}"
   );
   const [bodyTemplate, setBodyTemplate] = useState(
     `Bonjour,
 
-Je me permets de vous contacter en tant qu'étudiant en {2ème/3ème} année cycle ingénieur en {Votre_Domaine} à l'{Votre Ecole}, actuellement à la recherche d'un stage {PFA/PFE} .
+Je me permets de vous contacter en tant qu'étudiant en {2ème or 3ème} année cycle ingénieur en {Votre_Domaine} à l'{Votre Ecole}, actuellement à la recherche d'un stage {PFA or PFE} .
 
 {nom_entreprise} m'a particulièrement intéressé. Seriez-vous disponible pour un échange ? Je serais heureux de vous faire parvenir mon CV.
 
