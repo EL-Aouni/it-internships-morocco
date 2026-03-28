@@ -29,10 +29,10 @@ function EmailCampaignContent() {
   const [senderEmail, setSenderEmail] = useState("");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [subject, setSubject] = useState(
-    "Candidature Stage PFA - Securite Informatique & Cybersecurite"
+    "Candidature Stage {PFA/PFE} - {Votre Domaine}"
   );
   const [bodyTemplate, setBodyTemplate] = useState(
-    "Bonjour,\n\nJe me permets de vous contacter en tant qu'etudiant en 2eme annee cycle ingenieur en Cybersecurite a l'ENSA Oujda, actuellement a la recherche d'un stage PFA de deux mois (juillet et aout).\n\n{nom_entreprise} m'a particulierement interesse. Seriez-vous disponible pour un echange ? Je serais heureux de vous faire parvenir mon CV.\n\nCordialement,\n{nom}"
+    "Bonjour,\n\nJe me permets de vous contacter en tant qu'etudiant en {2eme/3eme} annee cycle ingenieur en {domaine} a l'{ecole}, actuellement a la recherche d'un stage {PFA/PFE} .\n\n{nom_entreprise} m'a particulierement interesse. Seriez-vous disponible pour un echange ? Je serais heureux de vous faire parvenir mon CV.\n\nCordialement,\n{nom}"
   );
   const [statuses, setStatuses] = useState<Record<number, SendStatus>>({});
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
