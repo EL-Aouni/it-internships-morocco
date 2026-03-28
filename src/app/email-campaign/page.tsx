@@ -26,17 +26,17 @@ function EmailCampaignContent() {
   const searchParams = useSearchParams();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [subject, setSubject] = useState(
-    "Candidature Stage PFA – Sécurité Informatique & Cybersécurité"
+    "Candidature Stage {PFA/PFE} – {Domaine}"
   );
   const [bodyTemplate, setBodyTemplate] = useState(
     `Bonjour,
 
-Je me permets de vous contacter en tant qu'étudiant en 2ème année cycle ingénieur en Cybersécurité à l'ENSA Oujda, actuellement à la recherche d'un stage PFA de deux mois (juillet et août).
+Je me permets de vous contacter en tant qu'étudiant en {2ème\3ème} année cycle ingénieur en {Votre_Domaine} à l'{Votre Ecole}, actuellement à la recherche d'un stage {PFA/PFE} .
 
 {nom_entreprise} m'a particulièrement intéressé. Seriez-vous disponible pour un échange ? Je serais heureux de vous faire parvenir mon CV.
 
 Cordialement,
-Mohammed El-Aouni`
+{nom}`
   );
   const [statuses, setStatuses] = useState<Record<number, SendStatus>>({});
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
