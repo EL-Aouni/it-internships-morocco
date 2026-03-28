@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Select,
   SelectContent,
@@ -18,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { MapPin, Briefcase, Mail, Phone, Globe, Copy, Home } from 'lucide-react';
+import { MapPin, Briefcase, Mail, Phone, Globe, Home, Send, CheckSquare, Square } from 'lucide-react';
 
 type Company = {
   id: number;
@@ -35,12 +36,15 @@ type Company = {
 };
 
 export default function SearchPage() {
+  const router = useRouter();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [filteredCompanies, setFilteredCompanies] = useState<Company[]>([]);
   const [city, setCity] = useState<string>('all');
   const [speciality, setSpeciality] = useState<string>('all');
   const [priority, setPriority] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [selectMode, setSelectMode] = useState(false);
 
   useEffect(() => {
     const basePath = process.env.NODE_ENV === 'production' 
@@ -86,9 +90,24 @@ export default function SearchPage() {
   const cities = [...new Set(companies.map(c => c.city))].sort();
   const specialities = [...new Set(companies.map(c => c.speciality))].sort();
 
-  const copyEmail = (email: string) => {
-    navigator.clipboard.writeText(email);
-    alert('Email copié!');
+  const toggleSelect = (id: number) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const selectAll = () => {
+    const withEmail = filteredCompanies.filter(c => c.email).map(c => c.id);
+    setSelectedIds(new Set(withEmail));
+  };
+
+  const clearSelection = () => setSelectedIds(new Set());
+
+  const launchCampaign = () => {
+    const ids = Array.from(selectedIds).join(',');
+    router.push(`/email-campaign?ids=${ids}`);
   };
 
   const getPriorityColor = (priority: string) => {
@@ -115,6 +134,13 @@ export default function SearchPage() {
               Home
             </Button>
           </Link>
+          <Button
+            variant={selectMode ? 'default' : 'outline'}
+            onClick={() => { setSelectMode(!selectMode); if (selectMode) clearSelection(); }}
+          >
+            <Send className="mr-2 h-4 w-4" />
+            {selectMode ? 'Annuler' : 'Campagne email'}
+          </Button>
         </div>
       </header>
 
@@ -177,6 +203,29 @@ export default function SearchPage() {
               Found <span className="font-semibold text-foreground">{filteredCompanies.length}</span> companies
             </div>
           )}
+
+          {selectMode && (
+            <div className="flex items-center gap-3 mt-4 p-3 bg-blue-50 border border-blue-100 rounded-lg">
+              <span className="text-sm text-blue-700 font-medium">
+                {selectedIds.size} entreprise{selectedIds.size !== 1 ? 's' : ''} sélectionnée{selectedIds.size !== 1 ? 's' : ''}
+              </span>
+              <Button variant="outline" size="sm" onClick={selectAll} className="h-7 text-xs">
+                Tout sélectionner
+              </Button>
+              <Button variant="outline" size="sm" onClick={clearSelection} className="h-7 text-xs">
+                Effacer
+              </Button>
+              <Button
+                size="sm"
+                className="ml-auto h-7 text-xs"
+                disabled={selectedIds.size === 0}
+                onClick={launchCampaign}
+              >
+                <Send className="mr-1 h-3 w-3" />
+                Lancer la campagne →
+              </Button>
+            </div>
+          )}
         </div>
 
         {loading ? (
@@ -187,13 +236,24 @@ export default function SearchPage() {
         ) : filteredCompanies.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCompanies.map(company => (
-              <Card key={company.id} className="hover:shadow-lg transition-shadow">
+              <Card
+                key={company.id}
+                className={`hover:shadow-lg transition-shadow ${selectMode && company.email ? 'cursor-pointer' : ''} ${selectMode && selectedIds.has(company.id) ? 'ring-2 ring-primary' : ''}`}
+                onClick={() => selectMode && company.email && toggleSelect(company.id)}
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-lg">{company.name}</CardTitle>
-                    <span className={`px-2 py-1 rounded text-xs font-semibold border ${getPriorityColor(company.priority)}`}>
-                      {company.priority}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      {selectMode && company.email && (
+                        selectedIds.has(company.id)
+                          ? <CheckSquare className="h-5 w-5 text-primary flex-shrink-0" />
+                          : <Square className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                      )}
+                      <span className={`px-2 py-1 rounded text-xs font-semibold border ${getPriorityColor(company.priority)}`}>
+                        {company.priority}
+                      </span>
+                    </div>
                   </div>
                   <CardDescription className="line-clamp-2">
                     {company.description}
