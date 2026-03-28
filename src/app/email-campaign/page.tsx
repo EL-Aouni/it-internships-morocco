@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Home, Mail, CheckCircle, Clock, AlertCircle, Send, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Home, Mail, CheckCircle, Clock, AlertCircle, Send, ArrowLeft, ExternalLink, Upload, User, Paperclip } from 'lucide-react';
 
 type Company = {
   id: number;
@@ -25,22 +25,19 @@ type SendStatus = 'idle' | 'opened' | 'skipped';
 function EmailCampaignContent() {
   const searchParams = useSearchParams();
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [senderName, setSenderName] = useState("Mohammed El-Aouni");
+  const [senderEmail, setSenderEmail] = useState("");
+  const [cvFile, setCvFile] = useState<File | null>(null);
   const [subject, setSubject] = useState(
-    "Candidature Stage {PFA or PFE} – {Domaine}"
+    "Candidature Stage PFA - Securite Informatique & Cybersecurite"
   );
   const [bodyTemplate, setBodyTemplate] = useState(
-    `Bonjour,
-
-Je me permets de vous contacter en tant qu'étudiant en {2ème or 3ème} année cycle ingénieur en {Votre_Domaine} à l'{Votre Ecole}, actuellement à la recherche d'un stage {PFA or PFE} .
-
-{nom_entreprise} m'a particulièrement intéressé. Seriez-vous disponible pour un échange ? Je serais heureux de vous faire parvenir mon CV.
-
-Cordialement,
-{nom}`
+    "Bonjour,\n\nJe me permets de vous contacter en tant qu'etudiant en 2eme annee cycle ingenieur en Cybersecurite a l'ENSA Oujda, actuellement a la recherche d'un stage PFA de deux mois (juillet et aout).\n\n{nom_entreprise} m'a particulierement interesse. Seriez-vous disponible pour un echange ? Je serais heureux de vous faire parvenir mon CV.\n\nCordialement,\n{nom}"
   );
   const [statuses, setStatuses] = useState<Record<number, SendStatus>>({});
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const ids = searchParams.get('ids');
@@ -63,7 +60,9 @@ Cordialement,
   }, [searchParams]);
 
   const buildBody = (company: Company) =>
-    bodyTemplate.replace(/{nom_entreprise}/g, company.name);
+    bodyTemplate
+      .replace(/{nom_entreprise}/g, company.name)
+      .replace(/{nom}/g, senderName);
 
   const openGmailCompose = (company: Company, index: number) => {
     const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(company.email!)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildBody(company))}`;
@@ -86,6 +85,11 @@ Cordialement,
     });
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setCvFile(file);
+  };
+
   const openedCount = Object.values(statuses).filter(s => s === 'opened').length;
   const skippedCount = Object.values(statuses).filter(s => s === 'skipped').length;
   const remaining = companies.length - openedCount - skippedCount;
@@ -104,7 +108,7 @@ Cordialement,
 
   const getStatusLabel = (status: SendStatus | undefined) => {
     if (status === 'opened') return 'Ouvert';
-    if (status === 'skipped') return 'Ignoré';
+    if (status === 'skipped') return 'Ignore';
     return 'En attente';
   };
 
@@ -118,7 +122,6 @@ Cordialement,
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
@@ -147,11 +150,10 @@ Cordialement,
         <div className="mb-6">
           <h2 className="text-3xl font-bold mb-1">Campagne d'emails</h2>
           <p className="text-muted-foreground">
-            Envoyez votre candidature PFA à chaque entreprise séparément via Gmail.
+            Envoyez votre candidature a chaque entreprise separement via Gmail.
           </p>
         </div>
 
-        {/* Stats bar */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="bg-card border rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-primary">{companies.length}</div>
@@ -168,13 +170,103 @@ Cordialement,
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left: Email template */}
           <div className="space-y-4">
+
+            {/* Sender info card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Vos informations
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Votre nom</label>
+                  <input
+                    type="text"
+                    placeholder="Mohammed El-Aouni"
+                    className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    value={senderName}
+                    onChange={e => setSenderName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Votre email</label>
+                  <input
+                    type="email"
+                    placeholder="votre.email@gmail.com"
+                    className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    value={senderEmail}
+                    onChange={e => setSenderEmail(e.target.value)}
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Les emails seront envoyes depuis votre compte Gmail connecte.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CV upload card */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Paperclip className="h-4 w-4" />
+                  Votre CV
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+                    cvFile
+                      ? 'border-green-300 bg-green-50'
+                      : 'border-border hover:border-primary/50 hover:bg-muted/30'
+                  }`}
+                >
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                  {cvFile ? (
+                    <div>
+                      <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <p className="text-sm font-medium text-green-700">{cvFile.name}</p>
+                      <p className="text-xs text-green-600 mt-1">
+                        {(cvFile.size / 1024).toFixed(0)} KB
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Cliquez pour changer de fichier
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                      <p className="text-sm font-medium">Deposez votre CV ici</p>
+                      <p className="text-xs text-muted-foreground mt-1">PDF, DOC, DOCX</p>
+                    </div>
+                  )}
+                </div>
+                {cvFile && (
+                  <div className="mt-3 flex items-start gap-2 p-3 bg-amber-50 border border-amber-100 rounded-lg">
+                    <AlertCircle className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-amber-700">
+                      Gmail ne permet pas les pieces jointes automatiques. Apres l'ouverture de chaque draft, cliquez sur le bouton <strong>trombone</strong> dans Gmail pour joindre votre CV manuellement.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Email template card */}
             <Card>
               <CardHeader>
                 <CardTitle className="text-base flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  Modèle d'email
+                  Modele d'email
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
@@ -190,13 +282,13 @@ Cordialement,
                 <div>
                   <label className="block text-sm font-medium mb-1">
                     Message{' '}
-                    <span className="text-muted-foreground font-normal">
-                      (utilisez <code className="bg-muted px-1 rounded text-xs">{'{nom_entreprise}'}</code> pour personnaliser)
+                    <span className="text-muted-foreground font-normal text-xs">
+                      — utilisez {'{nom_entreprise}'} et {'{nom}'} pour personnaliser
                     </span>
                   </label>
                   <textarea
                     className="w-full border rounded-md px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
-                    rows={12}
+                    rows={10}
                     value={bodyTemplate}
                     onChange={e => setBodyTemplate(e.target.value)}
                   />
@@ -213,8 +305,13 @@ Cordialement,
               <Send className="mr-2 h-4 w-4" />
               Ouvrir tous les drafts Gmail ({remaining} restants)
             </Button>
+            {cvFile && (
+              <p className="text-xs text-center text-amber-600 font-medium">
+                N'oubliez pas de joindre {cvFile.name} a chaque draft Gmail !
+              </p>
+            )}
             <p className="text-xs text-center text-muted-foreground">
-              Chaque email s'ouvrira dans un onglet Gmail séparé, pré-rempli et personnalisé.
+              Chaque email s'ouvrira dans un onglet Gmail separe, pre-rempli et personnalise.
             </p>
           </div>
 
@@ -230,15 +327,15 @@ Cordialement,
                 {companies.length === 0 ? (
                   <div className="px-6 py-8 text-center text-muted-foreground">
                     <Mail className="h-10 w-10 mx-auto mb-3 opacity-30" />
-                    <p>Aucune entreprise avec email trouvée.</p>
+                    <p>Aucune entreprise avec email trouvee.</p>
                     <Link href="/search">
                       <Button variant="outline" className="mt-3" size="sm">
-                        Retour à la recherche
+                        Retour a la recherche
                       </Button>
                     </Link>
                   </div>
                 ) : (
-                  <div className="divide-y max-h-[520px] overflow-y-auto">
+                  <div className="divide-y max-h-[700px] overflow-y-auto">
                     {companies.map((company, index) => (
                       <div
                         key={company.id}
