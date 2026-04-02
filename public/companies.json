@@ -2931,9 +2931,7 @@
     "address": "Casablanca",
     "priority": "low",
     "description": null
-  }
-]
-,
+  },
   {
     "id": 235, "name": "CIMR", "city": "Casablanca", "speciality": "Other", "email": "najat.tadlaoui@cimr.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
   },
@@ -3132,3 +3130,4 @@
   {
     "id": 300, "name": "Managem Group", "city": "Casablanca", "speciality": "Other", "email": "recrutement@managemgroup.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
   }
+]
