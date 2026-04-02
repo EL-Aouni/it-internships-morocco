@@ -2933,3 +2933,202 @@
     "description": null
   }
 ]
+,
+  {
+    "id": 235, "name": "CIMR", "city": "Casablanca", "speciality": "Other", "email": "najat.tadlaoui@cimr.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 236, "name": "Lafarge Maroc", "city": "Casablanca", "speciality": "Other", "email": "lakbir.taya@lafarge-maroc.lafarge.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 237, "name": "SEPROB", "city": "Casablanca", "speciality": "Other", "email": "izzi@seprob.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 238, "name": "NAREVA Holding", "city": "Casablanca", "speciality": "Other", "email": "c.hadouiri@nareva-ona.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 239, "name": "Holcim Maroc", "city": "Casablanca", "speciality": "Other", "email": "rim-anissa.bekkali@holcim.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 240, "name": "Schneider Electric Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "hafida.tallal@ma.schneider-electric.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 241, "name": "Tractafric", "city": "Casablanca", "speciality": "Other", "email": "drh@tractafric.co.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 242, "name": "ONCF", "city": "Casablanca", "speciality": "Other", "email": "achibane@oncf.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 243, "name": "COSUMAR", "city": "Casablanca", "speciality": "Other", "email": "k.benchekroun@cosumar.co.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 244, "name": "SEWS Cabind Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "n.bouabid@sews-cabind.it", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 245, "name": "Gazafric", "city": "Casablanca", "speciality": "Other", "email": "aabaselhassane@yahoo.fr", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 246, "name": "Ennaji Assurances", "city": "Casablanca", "speciality": "Other", "email": "i.sadki@essaada.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 247, "name": "Aramex Maroc", "city": "Casablanca", "speciality": "Other", "email": "nadia.ramzi@aramex.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 248, "name": "Cegelec Maroc", "city": "Casablanca", "speciality": "Network & Infrastructure", "email": "maroc.cegelec@cegelec.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 249, "name": "Alstom Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "radia.ouchagour@alstomgroup.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 250, "name": "Leoni Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "hr.morocco@leoni.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 251, "name": "Faurecia Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "m.fal@faurecia.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 252, "name": "JESA", "city": "Casablanca", "speciality": "Consulting & Audit", "email": "safae.aitlhaj@jesa.co.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 253, "name": "Yazaki Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "h.mouhsine@yazaki.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 254, "name": "OCP Group", "city": "Casablanca", "speciality": "Other", "email": "n.elmouhtadi@ocpgroup.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 255, "name": "Groupe PSA Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "a.adjouri@mpsa.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 256, "name": "LEAR Corporation Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "hr.morocco@lear.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 257, "name": "DuPont Maroc", "city": "Casablanca", "speciality": "Other", "email": "nabil.benmoussa@dupont.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 258, "name": "Siemens Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "nadia.lahlou@siemens.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 259, "name": "SONASID", "city": "Casablanca", "speciality": "Other", "email": "y.aitkaddour@sonasid.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 260, "name": "Aluminium du Maroc", "city": "Casablanca", "speciality": "Other", "email": "recrutement@alu.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 261, "name": "Delphi Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "morocco.hr@delphi.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 262, "name": "Stellantis Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "rachid.benslimane@stellantis.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 263, "name": "Metallochimie Maroc", "city": "Casablanca", "speciality": "Other", "email": "contact@metallochimie.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 264, "name": "Afric Industries", "city": "Casablanca", "speciality": "Other", "email": "recrutement@afric-industries.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 265, "name": "SIPEM", "city": "Casablanca", "speciality": "Other", "email": "hr@sipem.co.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 266, "name": "Alten Maroc", "city": "Casablanca", "speciality": "Consulting & Audit", "email": "recrutement@altenmaroc.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 267, "name": "CIPLAT Maroc", "city": "Casablanca", "speciality": "Other", "email": "hr@ciplat.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 268, "name": "Promamec", "city": "Casablanca", "speciality": "Other", "email": "recrutement@promamec.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 269, "name": "Royal Air Maroc", "city": "Casablanca", "speciality": "Other", "email": "recrutement@royalairmaroc.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 270, "name": "Marjane Holding", "city": "Casablanca", "speciality": "Other", "email": "recrutement@marjane.co.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 271, "name": "Orange Maroc", "city": "Casablanca", "speciality": "Telecom & Networks", "email": "recrutement@orange.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 272, "name": "CIH Bank", "city": "Casablanca", "speciality": "FinTech", "email": "recrutement@cihbank.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 273, "name": "Alliances Developpement Immobilier", "city": "Casablanca", "speciality": "Other", "email": "rh@alliances.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 274, "name": "SAHAM Assurance", "city": "Casablanca", "speciality": "FinTech", "email": "recrutement@sahamassurance.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 275, "name": "Label Vie Carrefour", "city": "Casablanca", "speciality": "Other", "email": "recrutement@labelvie.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 276, "name": "BMCE Bank of Africa", "city": "Casablanca", "speciality": "FinTech", "email": "recrutement@bmcebank.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 277, "name": "Wafacash", "city": "Casablanca", "speciality": "FinTech", "email": "recrutement@wafacash.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 278, "name": "Menara Holding", "city": "Casablanca", "speciality": "Other", "email": "recrutement@menara-holding.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 279, "name": "Lydec", "city": "Casablanca", "speciality": "Other", "email": "recrutement@lydec.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 280, "name": "Credit du Maroc", "city": "Casablanca", "speciality": "FinTech", "email": "recrutement@creditdumaroc.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "high", "description": null
+  },
+  {
+    "id": 281, "name": "Somagec", "city": "Casablanca", "speciality": "Other", "email": "recrutement@somagec.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 282, "name": "Tanger Med", "city": "Tanger", "speciality": "Other", "email": "recrutement@tangermed.ma", "phone": null, "website": null, "linkedin": null, "address": "Tanger", "priority": "medium", "description": null
+  },
+  {
+    "id": 283, "name": "Sothema", "city": "Casablanca", "speciality": "Other", "email": "recrutement@sothema.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 284, "name": "Centrale Danone", "city": "Casablanca", "speciality": "Other", "email": "recrutement@danone.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 285, "name": "MEDZ", "city": "Casablanca", "speciality": "Other", "email": "recrutement@medz.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 286, "name": "JAIDA", "city": "Casablanca", "speciality": "FinTech", "email": "recrutement@jaida.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 287, "name": "TAQA Morocco", "city": "Casablanca", "speciality": "Other", "email": "recrutement@taqamorocco.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 288, "name": "Maisons du Monde Maroc", "city": "Casablanca", "speciality": "Other", "email": "recrutement@maisonsdumonde.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 289, "name": "Rabat Region Amenagement", "city": "Rabat", "speciality": "Other", "email": "recrutement@rra.ma", "phone": null, "website": null, "linkedin": null, "address": "Rabat", "priority": "low", "description": null
+  },
+  {
+    "id": 290, "name": "STROC Industrie", "city": "Casablanca", "speciality": "Other", "email": "rh@strocindustrie.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 291, "name": "NAREVA", "city": "Casablanca", "speciality": "Other", "email": "recrutement@nareva.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 292, "name": "Douja Promotion Addoha", "city": "Casablanca", "speciality": "Other", "email": "recrutement@addoha.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 293, "name": "Maison de l'Artisan", "city": "Casablanca", "speciality": "Other", "email": "recrutement@maisondelartisan.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 294, "name": "Grupo Antolin Maroc", "city": "Casablanca", "speciality": "Hardware & Systems", "email": "recrutement@grupoantolin.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 295, "name": "Foodina", "city": "Casablanca", "speciality": "Other", "email": "recrutement@foodina.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 296, "name": "Maghreb Oxygene", "city": "Casablanca", "speciality": "Other", "email": "recrutement@maghreb-oxygene.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 297, "name": "Carrieres et Marbreries du Maroc", "city": "Casablanca", "speciality": "Other", "email": "recrutement@cmm.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "low", "description": null
+  },
+  {
+    "id": 298, "name": "Portnet", "city": "Casablanca", "speciality": "Other", "email": "recrutement@portnet.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 299, "name": "Colas Maroc", "city": "Casablanca", "speciality": "Other", "email": "recrutement@colas.ma", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  },
+  {
+    "id": 300, "name": "Managem Group", "city": "Casablanca", "speciality": "Other", "email": "recrutement@managemgroup.com", "phone": null, "website": null, "linkedin": null, "address": "Casablanca", "priority": "medium", "description": null
+  }
