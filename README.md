@@ -16,6 +16,9 @@ A web application helping Moroccan IT students find internship opportunities acr
 -  **One-Click Copy** - Copy email addresses instantly
 -  **Fully Responsive** - Works on all devices
 -  **Real-Time** - Instant search results with tRPC
+- **People Finder** - Find practitioners, HR contacts and alumni by specialty (pentest/SQLi, data protection, SOC/SIEM, cloud, GRC...)
+- **Message Drafts** - Short connection notes and follow-ups in French or English
+- **Contact Tracker** - Track every outreach, import and export CSV
 
 ##  Quick Start
 
@@ -66,6 +69,31 @@ The database comes with:
 - **18 cities**: Casablanca, Rabat, Marrakech, Fès, Tangier, and more
 - **15 IT specialties**: Web Dev, Cybersecurity, Cloud, AI/ML, Mobile, DevOps, etc.
 
+
+### People Finder
+
+Available at `/people`. It helps you reach the right person before you apply.
+
+1. **Set your profile and goal**: name, school, internship type, target field, and what you want to ask (advice, HR contact, right team, or alumni advice).
+2. **Find people**: choose who to look for (practitioners, HR/recruiters, managers, alumni), plus an optional company and city. The page builds:
+   - a LinkedIn people search
+   - a Google `site:linkedin.com/in` search (works without a LinkedIn account)
+   - a search for hiring posts from the last 30 days
+   - the company page search
+3. **Copy a message**: a connection note (with a character counter for the 200-character free-account limit) and a longer follow-up for after they accept, in French or English. You can edit any message before copying.
+4. **Track contacts**: import a CSV or add contacts manually, set a status (New, Request sent, Connected, Messaged, Replied, Lead obtained, Closed), add notes, and export to CSV.
+
+**CSV columns recognised on import** (header names are matched loosely): `Contact name`, `Company`, `Public role / relevance noted`, `LinkedIn URL`, `Priority`, `Follow-up / notes`, `Status`.
+
+#### Privacy and fair use
+
+- The tool does **not** scrape LinkedIn or call any LinkedIn API. It only generates search URLs that you open yourself.
+- Nothing is sent automatically. You read, personalise and send every message yourself.
+- Contacts and settings are stored in your browser (`localStorage`) only. Nothing is sent to a server.
+- Do not commit CSV files containing real people's data to this repository.
+- Please be respectful: send a small number of personalised messages rather than mass messaging, and follow LinkedIn's User Agreement.
+
+  
 ##  Contributing
 
 Contributions are welcome! Here's how:
