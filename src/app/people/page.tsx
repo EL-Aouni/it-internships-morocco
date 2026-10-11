@@ -385,6 +385,13 @@ export default function PeoplePage() {
                 <Upload className="mr-2 h-4 w-4" />
                 {t('Importer CSV', 'Import CSV')}
               </Button>
+              <a
+                href={`${process.env.NODE_ENV === 'production' ? '/it-internships-morocco' : ''}/example-contacts.csv`}
+                download
+                className="text-sm text-primary underline-offset-4 hover:underline"
+              >
+                {t('Télécharger un CSV exemple', 'Download example CSV')}
+              </a>
               <Button size="sm" variant="outline" onClick={onExport} disabled={!contacts.length}>
                 <Download className="mr-2 h-4 w-4" />
                 {t('Exporter CSV', 'Export CSV')}
