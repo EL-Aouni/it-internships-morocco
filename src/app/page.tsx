@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, Briefcase } from "lucide-react";
+import { Search, MapPin, Briefcase, Users } from "lucide-react";
 
 export default function Home() {
   return (
@@ -11,12 +11,20 @@ export default function Home() {
           <h1 className="text-2xl font-bold text-primary">
             IT Internships Morocco
           </h1>
-          <Link href="/search">
-            <Button>
-              <Search className="mr-2 h-4 w-4" />
-              Search Internships
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link href="/people">
+              <Button variant="outline">
+                <Users className="mr-2 h-4 w-4" />
+                Find People
+              </Button>
+            </Link>
+            <Link href="/search">
+              <Button>
+                <Search className="mr-2 h-4 w-4" />
+                Search Internships
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -36,6 +44,12 @@ export default function Home() {
               <Button size="lg" className="w-full sm:w-auto">
                 <Search className="mr-2 h-5 w-5" />
                 Start Searching
+              </Button>
+            </Link>
+            <Link href="/people">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                <Users className="mr-2 h-5 w-5" />
+                Find People &amp; Send Messages
               </Button>
             </Link>
           </div>
